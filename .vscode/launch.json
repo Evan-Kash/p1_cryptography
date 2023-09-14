@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/len_ext_attack.py",
             "console": "internalConsole",
-            "args": ["TODO: PUT URL HERE"]
+            "args": ["https://project1.eecs388.org/evankash/lengthextension/api?token=d38a806b56562d26fd6789acb86a32a685cb42aecd875163b4e7d906e615522c&command=SprinklersPowerOn"]
         },
         {
             "name": "Bleichenbacher",

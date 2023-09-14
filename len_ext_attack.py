@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Run me like this:
-# $ python3 len_ext_attack.py "https://project1.eecs388.org/uniqname/lengthextension/api?token=...."
+# $ python3 len_ext_attack.py https://project1.eecs388.org/evankash/lengthextension/api?token=d38a806b56562d26fd6789acb86a32a685cb42aecd875163b4e7d906e615522c&command=SprinklersPowerOn
 # or select "Length Extension" from the VS Code debugger
 
 import sys
@@ -34,9 +34,16 @@ def main():
     #
     # TODO: Modify the URL
     #
-    url.token = 'TODO'
-    url.suffix += 'TODO'
-
+    secret_password = "password" #8-byte password
+    extension = "&command=UnlockSafes"
+    raw_padding = padding(len(secret_password + url.suffix))
+    bytes_consumed = 8 + len(url.suffix) + len(padding(len(url.suffix)+8))
+    h1 = sha256(state= bytes.fromhex(url.token), count= bytes_consumed)
+    h1.update(extension.encode())
+    url.token = h1.hexdigest()
+    url.suffix+= quote(raw_padding)
+    url.suffix += "&command=UnlockSafes"
+    
     print(url)
 
 
